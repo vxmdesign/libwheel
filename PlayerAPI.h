@@ -3,6 +3,7 @@
 
 #include <wiringPi.h>
 #include "Player.h"
+#include<stdio.h>
 
 
 extern "C"{
@@ -11,7 +12,10 @@ extern "C"{
   double getWheelRate();
   int getWheelQueueSize();
   void pushWheelKeys(int pKey1, int pKey2);
+  int getNumber();
+  void setNumber(int val);
 
 }
 
 #endif
+  

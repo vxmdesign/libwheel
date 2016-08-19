@@ -9,10 +9,13 @@ WheelIO *local_map[sizeof(iomap)/sizeof(wpins)];
 
 void map1_trig(){
   local_map[0]->interrupt();
+  printf("trig spi 1\n");
 }
 
 void map2_trig(){
   local_map[1]->interrupt();
+  printf("trig spi 2\n");
+ 
 }
 
 WheelIO::WheelIO(int pSelect){
@@ -44,7 +47,8 @@ void WheelIO::interrupt(){
 
 void WheelIO::sendInt(int pVal){
   int c;
-  sem_wait(&mLock);
+  //sem_wait(&mLock);
+  printf("sending %x\n",pVal);
   for(c = 0; c < 18; c++){
     digitalWrite(mPins->sclk, 0);
     if(pVal & 0x1){
@@ -68,9 +72,11 @@ void WheelIO::configAll(){
   digitalWrite(mPins->trig, 0);
   if(mSelect == 0){
     wiringPiISR(mPins->intr, INT_EDGE_FALLING, &map1_trig);
+
   }else if(mSelect == 1){
     wiringPiISR(mPins->intr, INT_EDGE_FALLING, &map2_trig);
   }
+  local_map[mSelect] = this;
 }
 
 double WheelIO::rate(){

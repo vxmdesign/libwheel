@@ -20,7 +20,7 @@ def getWheelQueueSize():
 	return lib.getWheelQueueSize()
 
 def pushWheelKeys(pKey1, pKey2):
-	lib.getWheelQueueSize( int(pKey1), int(pKey2))
+	lib.pushWheelKeys( pKey1, pKey2)
 
 def setNumber(val):
 	lib.setNumber(int(val))
